@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How we get 100+ users to Yobody JJ in two weeks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf8f6;--surface:#ffffff;--border:#eceae6;--border-strong:#ddd9d3;
+    --text:#37342f;--heading:#2e2b27;--text-2:#6f6a63;--text-3:#a8a29a;
+    --accent:#e1785a;--accent-strong:#c85f3d;--accent-soft:#fceee7;--accent-tint:#fdf6f2;
+    --gold:#c99a3d;--gold-deep:#8a6d28;--gold-tint:#f6f1e4;--gold-line:#e3d5ae;
+    --teal:#4d7a78;--teal-soft:#e8f0ef;
+    --radius:17.6px;--radius-sm:12.1px;
+    --shadow-sm:0 1.1px 2.2px rgba(55,52,47,.04),0 1.1px 3.3px rgba(55,52,47,.05);
+    --font-head:"Poppins",system-ui,sans-serif;--font-body:"Inter",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:17.6px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1220px;margin:0 auto;padding:35px 53px 90px;}
+
+  .top{display:flex;align-items:center;justify-content:space-between;border-bottom:1.1px solid var(--border);padding-bottom:17.6px;margin-bottom:34px;}
+  .brand{display:flex;align-items:center;gap:13px;}
+  .brand .mark{width:30px;height:30px;border-radius:50%;border:3.4px solid var(--accent);border-right-color:transparent;transform:rotate(-40deg);}
+  .brand .nm{font-family:var(--font-head);font-weight:800;font-size:23px;color:var(--heading);letter-spacing:-.01em;}
+  .brand .div{width:1.1px;height:21px;background:var(--border-strong);}
+  .brand .ed{font-size:15.4px;color:var(--text-2);font-weight:500;}
+  .doc-meta{font-size:13.75px;color:var(--text-3);text-align:right;line-height:1.4;}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-head);font-weight:600;font-size:13.75px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-strong);margin-bottom:14px;}
+  .eyebrow .dot{width:8.8px;height:8.8px;border-radius:50%;background:var(--accent);}
+
+  h1{font-family:var(--font-head);font-weight:800;font-size:clamp(32px,3.6vw,50px);line-height:1.06;color:var(--heading);margin:0 0 16px;letter-spacing:-.015em;}
+  .lede{font-size:clamp(19px,1.7vw,22px);color:var(--text-2);max-width:74ch;line-height:1.5;}
+  .lede strong{color:var(--text);font-weight:600;}
+
+  .big-title{margin:74px 0 10px;padding-top:29px;border-top:3.3px solid var(--heading);display:flex;align-items:flex-start;gap:20px;}
+  .big-title .bt-num{font-family:var(--font-head);font-weight:800;font-size:16.5px;color:#fff;background:var(--heading);width:44px;height:44px;border-radius:12.1px;display:grid;place-items:center;flex:0 0 auto;margin-top:4px;}
+  .big-title.warm .bt-num{background:var(--accent-strong);}
+  .big-title.gold .bt-num{background:var(--gold-deep);}
+  .big-title .bt-kick{font-family:var(--font-head);font-weight:700;font-size:13.2px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:3px;}
+  .big-title.warm .bt-kick{color:var(--accent-strong);}
+  .big-title.gold .bt-kick{color:var(--gold-deep);}
+  .big-title h2{font-family:var(--font-head);font-weight:800;font-size:clamp(27px,2.9vw,38px);line-height:1.1;color:var(--heading);margin:0 0 7px;letter-spacing:-.01em;}
+  .big-title .bt-sub{font-size:18.15px;color:var(--text-2);max-width:82ch;line-height:1.5;}
+  .big-title .bt-sub strong{color:var(--text);font-weight:600;}
+
+  .diagram-label{font-family:var(--font-head);font-weight:700;font-size:14.85px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin:44px 0 8px;display:flex;align-items:center;gap:13px;}
+  .diagram-label::after{content:"";flex:1;height:1.1px;background:var(--border);}
+  .stage-svg{width:100%;height:auto;display:block;}
+  .fig{font-family:var(--font-head);}
+
+  /* headline panel */
+  .headline{background:var(--heading);color:#f3efe9;border-radius:var(--radius);padding:38px 44px;margin-top:22px;}
+  .headline .hk{font-family:var(--font-head);font-weight:700;font-size:13.2px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  .headline .h-main{font-family:var(--font-head);font-weight:700;font-size:clamp(22px,2.3vw,29px);line-height:1.32;color:#fff;margin:0 0 14px;}
+  .headline .h-main em{font-style:normal;color:var(--accent);}
+  .headline .h-sub{font-size:18px;color:#c8c2b8;margin:0;}
+
+  /* stat strip */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:20px;}
+  .stat{background:var(--surface);border:1.1px solid var(--border);border-top:4.4px solid var(--sc,var(--accent));border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow-sm);}
+  .stat .n{font-family:var(--font-head);font-weight:800;font-size:38px;line-height:1;color:var(--sc,var(--accent-strong));margin-bottom:8px;}
+  .stat .l{font-size:15.4px;color:var(--text-2);line-height:1.4;}
+
+  /* numbered reason rows */
+  .drill{margin-top:20px;display:flex;flex-direction:column;gap:13px;}
+  .row{display:flex;gap:17.6px;align-items:stretch;}
+  .rownum{flex:0 0 48px;display:flex;flex-direction:column;align-items:center;gap:7px;padding-top:4px;}
+  .rownum .bub{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;color:#fff;font-family:var(--font-head);font-weight:700;font-size:18.7px;box-shadow:var(--shadow-sm);background:var(--rc,var(--accent));}
+  .rownum .stem{flex:1;width:2.2px;background:var(--border-strong);border-radius:2px;}
+  .rowbody{flex:1;background:var(--surface);border:1.1px solid var(--border);border-radius:var(--radius);padding:19px 25px;box-shadow:var(--shadow-sm);border-left:4.4px solid var(--rc,var(--accent));margin-bottom:3px;}
+  .rowbody h3{font-family:var(--font-head);font-weight:700;font-size:22px;color:var(--heading);margin:0 0 5px;}
+  .rowbody .what{font-size:17.6px;color:var(--text-2);line-height:1.5;}
+  .rowbody .what strong{font-weight:600;color:var(--text);}
+
+  /* offer card */
+  .offer{background:var(--surface);border:1.1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;margin-top:22px;}
+  .offer .oh{background:var(--accent-strong);color:#fff;padding:16px 30px;font-family:var(--font-head);font-weight:700;font-size:15px;letter-spacing:.1em;text-transform:uppercase;}
+  .offer .ob{display:grid;grid-template-columns:1.15fr 1fr 1.25fr;}
+  .offer .oc{padding:26px 30px;border-right:1.1px solid var(--border);}
+  .offer .oc:last-child{border-right:none;}
+  .offer .ok{font-family:var(--font-head);font-weight:700;font-size:12.65px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:9px;}
+  .offer .ov{font-family:var(--font-head);font-weight:800;font-size:25px;color:var(--heading);line-height:1.2;margin-bottom:6px;}
+  .offer .ov.price{font-size:44px;color:var(--accent-strong);}
+  .offer .od{font-size:15.95px;color:var(--text-2);line-height:1.45;}
+
+  /* message stack */
+  .msgs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+  .msg{background:var(--surface);border:1.1px solid var(--border);border-top:4.4px solid var(--mc,var(--accent));border-radius:var(--radius);padding:22px 26px;box-shadow:var(--shadow-sm);}
+  .msg .mk{font-family:var(--font-head);font-weight:700;font-size:12.65px;letter-spacing:.09em;text-transform:uppercase;color:var(--mc,var(--accent-strong));margin-bottom:8px;}
+  .msg .mt{font-family:var(--font-head);font-weight:700;font-size:19.8px;color:var(--heading);line-height:1.35;margin-bottom:8px;}
+  .msg .md{font-size:16.5px;color:var(--text-2);line-height:1.5;}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin-top:18px;background:var(--surface);border:1.1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);}
+  th{background:var(--accent-tint);font-family:var(--font-head);font-weight:700;font-size:13.2px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-strong);text-align:left;padding:14px 18px;border-bottom:1.1px solid var(--border);}
+  td{padding:15px 18px;border-bottom:1.1px solid var(--border);font-size:17.05px;vertical-align:top;color:var(--text-2);}
+  tr:last-child td{border-bottom:none;}
+  td strong{font-weight:600;color:var(--heading);}
+  td.ph{font-family:var(--font-head);font-weight:700;color:var(--accent-strong);white-space:nowrap;}
+  td.dt{white-space:nowrap;font-size:15.95px;}
+  .tag{display:inline-block;font-family:var(--font-head);font-size:12.1px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3.3px 10px;border-radius:999px;}
+  .tag.warm{background:var(--accent-soft);color:var(--accent-strong);}
+  .tag.gold{background:var(--gold-tint);color:var(--gold-deep);}
+
+  /* source cards */
+  .srcs{display:flex;flex-direction:column;gap:13px;margin-top:20px;}
+  .src{display:flex;gap:18px;align-items:flex-start;background:var(--surface);border:1.1px solid var(--border);border-left:4.4px solid var(--sc,var(--accent));border-radius:var(--radius);padding:20px 26px;box-shadow:var(--shadow-sm);}
+  .src .sn{font-family:var(--font-head);font-weight:800;font-size:15.4px;color:var(--sc,var(--accent-strong));flex:0 0 34px;padding-top:4px;}
+  .src .sb{flex:1;}
+  .src .st{font-family:var(--font-head);font-weight:700;font-size:21px;color:var(--heading);margin-bottom:6px;display:flex;align-items:center;gap:11px;flex-wrap:wrap;}
+  .src .sd{font-size:17.05px;color:var(--text-2);line-height:1.5;}
+
+  /* owner cards */
+  .owners{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;}
+  .own{background:var(--surface);border:1.1px solid var(--border);border-top:4.4px solid var(--oc,var(--accent));border-radius:var(--radius);padding:22px 26px;box-shadow:var(--shadow-sm);}
+  .own .ot{font-family:var(--font-head);font-weight:800;font-size:13.2px;letter-spacing:.13em;text-transform:uppercase;color:var(--oc,var(--accent-strong));margin-bottom:13px;}
+  .own ul{margin:0;padding:0;list-style:none;}
+  .own li{font-size:16.5px;color:var(--text-2);padding:8px 0 8px 24px;position:relative;line-height:1.45;border-bottom:1.1px solid var(--border);}
+  .own li:last-child{border-bottom:none;}
+  .own li::before{content:"";position:absolute;left:2px;top:16px;width:9px;height:9px;border-radius:3px;border:1.8px solid var(--oc,var(--accent));}
+
+  /* flag */
+  .flag{background:var(--accent-tint);border:1.1px solid #f0d9cd;border-left:4.4px solid var(--accent-strong);border-radius:var(--radius-sm);padding:19px 24px;margin-top:18px;}
+  .flag.gold{background:var(--gold-tint);border-color:var(--gold-line);border-left-color:var(--gold-deep);}
+  .flag .ft{font-family:var(--font-head);font-weight:700;font-size:18.15px;color:var(--accent-strong);margin-bottom:5px;}
+  .flag.gold .ft{color:var(--gold-deep);}
+  .flag .fd{font-size:17.05px;color:var(--text);line-height:1.5;}
+  .flag .fd strong{font-weight:600;}
+
+  .legend{display:flex;flex-wrap:wrap;gap:24px;margin:16px 0 4px;font-size:15.95px;color:var(--text-2);}
+  .legend .li{display:flex;align-items:center;gap:9px;}
+  .legend .sw{width:14px;height:14px;border-radius:4px;}
+
+  .foot{margin-top:70px;padding-top:20px;border-top:1.1px solid var(--border);font-size:14.3px;color:var(--text-3);line-height:1.5;}
+
+  .only-mobile{display:none;}
+
+  @media (max-width:900px){
+    .wrap{padding:26px 22px 60px;}
+    .stats,.owners,.msgs,.offer .ob{grid-template-columns:1fr;}
+    .offer .oc{border-right:none;border-bottom:1.1px solid var(--border);}
+  }
+
+  /* ---------- PHONE ---------- */
+  @media (max-width:760px){
+    body{font-size:16px;}
+    .wrap{padding:20px 16px 48px;}
+
+    .only-mobile{display:block;}
+    .only-desktop{display:none;}
+    br.only-desktop{display:none;}
+
+    .top{padding-bottom:13px;margin-bottom:22px;flex-direction:column;align-items:flex-start;gap:9px;}
+    .doc-meta{text-align:left;}
+    .brand .nm{font-size:19px;} .brand .ed{font-size:13px;}
+    .brand .div{display:none;} .brand{gap:9px;flex-wrap:wrap;}
+    .doc-meta{font-size:11.5px;}
+
+    h1{font-size:31px;line-height:1.12;}
+    .lede{font-size:17px;}
+
+    .big-title{margin:44px 0 8px;padding-top:20px;border-top-width:2.5px;
+               flex-direction:column;gap:12px;}
+    .big-title .bt-num{width:38px;height:38px;font-size:14px;border-radius:10px;margin-top:0;}
+    .big-title h2{font-size:26px;}
+    .big-title .bt-sub{font-size:16px;}
+    .big-title .bt-kick{font-size:11.5px;}
+
+    .diagram-label{margin:26px 0 10px;font-size:12.5px;}
+    .legend{gap:14px;font-size:14px;flex-direction:column;}
+
+    .headline{padding:26px 22px;border-radius:14px;}
+    .headline .h-main{font-size:20px;line-height:1.36;}
+    .headline .h-sub{font-size:15.5px;}
+
+    .stat{padding:16px 18px;border-radius:14px;}
+    .stat .n{font-size:31px;margin-bottom:5px;}
+    .stat .l{font-size:14.5px;}
+    .stats{gap:11px;}
+
+    .row{gap:12px;}
+    .rownum{flex:0 0 38px;}
+    .rownum .bub{width:38px;height:38px;font-size:16px;border-radius:11px;}
+    .rowbody{padding:16px 18px;border-radius:14px;}
+    .rowbody h3{font-size:19px;}
+    .rowbody .what{font-size:15.5px;}
+
+    .offer{border-radius:14px;}
+    .offer .oh{padding:13px 20px;font-size:12.5px;letter-spacing:.06em;}
+    .offer .oc{padding:20px;}
+    .offer .ov{font-size:21px;}
+    .offer .ov.price{font-size:38px;}
+    .offer .od{font-size:15px;}
+
+    .msgs{gap:11px;}
+    .msg{padding:18px 20px;border-radius:14px;}
+    .msg .mt{font-size:17.5px;}
+    .msg .md{font-size:15px;}
+
+    .flag{padding:16px 18px;}
+    .flag .ft{font-size:16.5px;}
+    .flag .fd{font-size:15.5px;}
+
+    .src{padding:16px 18px;gap:12px;border-radius:14px;flex-direction:column;}
+    .src .sn{padding-top:0;flex:none;font-size:13px;}
+    .src .st{font-size:18px;gap:8px;}
+    .src .sd{font-size:15.5px;}
+    .tag{font-size:11px;padding:3px 9px;}
+
+    .own{padding:18px 20px;border-radius:14px;}
+    .own li{font-size:15.5px;padding:7px 0 7px 22px;}
+    .own li::before{top:14px;}
+    .owners{gap:11px;}
+
+    /* tables become stacked rows */
+    table{border-radius:14px;}
+    table tr:first-child{display:none;}
+    table, table tbody, table tr, table td{display:block;width:100%;}
+    table tr{padding:14px 18px;border-bottom:1.1px solid var(--border);}
+    table tr:last-child{border-bottom:none;}
+    table td{padding:0;border-bottom:none;font-size:15.5px;}
+    table td.ph{font-size:16px;margin-bottom:1px;}
+    table td.dt{font-size:13.5px;color:var(--text-3);margin-bottom:7px;}
+
+    .foot{margin-top:44px;font-size:12.5px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand">
+      <div class="mark"></div>
+      <div class="nm">Yobody</div>
+      <div class="div"></div>
+      <div class="ed">JJ Smith Edition</div>
+    </div>
+    <div class="doc-meta">Launch plan &#183; August 2026<br>Internal &#183; For TJ and JJ</div>
+  </div>
+
+  <div class="eyebrow"><span class="dot"></span>The first 100</div>
+  <h1>How we get 100+ users to <br class="only-desktop">Yobody JJ in two weeks.</h1>
+  <p class="lede">Starting <strong>tomorrow, August 4.</strong> We run the <strong>12 Week Challenge</strong> with a start date, a deadline and limited spots, and put that one message in front of JJ's audience every day for two weeks. No ads. No new audience. Nothing built from scratch.</p>
+
+  <div class="flag">
+    <div class="ft">Why a challenge</div>
+    <div class="fd">Everybody understands a challenge instantly, so nothing has to be explained before she can decide. It gives us a real deadline: <strong>finish by Thanksgiving or start over in January.</strong> And it lets JJ push the same offer every day for two weeks without repeating herself, which matters because people buy the fifth or sixth time they see something, not the first. What makes Yobody different comes second. That is what makes her buy.</div>
+  </div>
+
+
+
+  <!-- ============ 01 · WHAT WE ARE DOING ============ -->
+  <div class="big-title warm">
+    <div class="bt-num">01</div>
+    <div>
+      <div class="bt-kick">What we are doing</div>
+      <h2>Five sources, one page</h2>
+      <div class="bt-sub">Every asset JJ already owns points at the same offer for thirteen days. Two are the launch. Three keep producing members after doors close.</div>
+    </div>
+  </div>
+
+  <div class="diagram-label">The engine</div>
+
+  <svg class="stage-svg only-desktop" viewBox="0 0 1260 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Five traffic sources feed one offer page. The launch engine is JJ's stories, her email lists and her content with a DM keyword, all running for thirteen days. The always on engine is the low ticket upsell and the supplement upsell, offered at checkout every day and continuing after doors close. All five point at one offer page, which produces a single founding cohort of a hundred or more members.">
+    <defs>
+      <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c98f7a"/></marker>
+      <marker id="arg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c9a86a"/></marker>
+      <marker id="arb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c85f3d"/></marker>
+    </defs>
+
+    <text class="fig" x="36" y="30" font-size="12.5" font-weight="700" fill="#a8a29a" letter-spacing="1.1">TRAFFIC SOURCES</text>
+    <text class="fig" x="712" y="30" font-size="12.5" font-weight="700" fill="#a8a29a" letter-spacing="1.1">ONE DESTINATION</text>
+    <text class="fig" x="1010" y="30" font-size="12.5" font-weight="700" fill="#a8a29a" letter-spacing="1.1">THE RESULT</text>
+
+    <rect x="28" y="48" width="620" height="290" rx="18" fill="#fdf6f2" stroke="#f3e1d7"/>
+    <text class="fig" x="48" y="76" font-size="13.5" font-weight="800" fill="#c85f3d">THE LAUNCH ENGINE &#183; 13 days only</text>
+    <text class="fig" x="48" y="96" font-size="12.5" font-weight="500" fill="#9c8478">Runs August 4 to 16. This is where most of the 100 comes from.</text>
+
+    <g>
+      <rect x="46" y="110" width="290" height="62" rx="11" fill="#fff" stroke="#eddcd2"/>
+      <rect x="46" y="110" width="4.5" height="62" rx="2" fill="#c85f3d"/>
+      <text class="fig" x="66" y="136" font-size="15" font-weight="700" fill="#2e2b27">JJ Instagram stories</text>
+      <text x="66" y="157" font-size="12.5" fill="#6f6a63" font-family="Inter">Daily, every day of the launch</text>
+    </g>
+    <g>
+      <rect x="46" y="182" width="290" height="62" rx="11" fill="#fff" stroke="#eddcd2"/>
+      <rect x="46" y="182" width="4.5" height="62" rx="2" fill="#d76e4d"/>
+      <text class="fig" x="66" y="208" font-size="15" font-weight="700" fill="#2e2b27">Email lists</text>
+      <text x="66" y="229" font-size="12.5" fill="#6f6a63" font-family="Inter">Six sends across thirteen days</text>
+    </g>
+    <g>
+      <rect x="46" y="254" width="290" height="62" rx="11" fill="#fff" stroke="#eddcd2"/>
+      <rect x="46" y="254" width="4.5" height="62" rx="2" fill="#e1785a"/>
+      <text class="fig" x="66" y="280" font-size="15" font-weight="700" fill="#2e2b27">Content plus DM keyword</text>
+      <text x="66" y="301" font-size="12.5" fill="#6f6a63" font-family="Inter">Every post and reel during the launch</text>
+    </g>
+
+    <rect x="368" y="150" width="256" height="126" rx="13" fill="#fff" stroke="#e1785a" stroke-width="1.6"/>
+    <text class="fig" x="496" y="180" font-size="14" font-weight="800" fill="#c85f3d" text-anchor="middle">SAME OFFER, FOUR ANGLES</text>
+    <line x1="392" y1="192" x2="600" y2="192" stroke="#f0ddd4"/>
+    <text x="496" y="214" font-size="12.5" fill="#37342f" font-family="Inter" text-anchor="middle">Announce &#8594; Prove &#8594; Push &#8594; Close</text>
+    <text x="496" y="238" font-size="12.5" fill="#6f6a63" font-family="Inter" text-anchor="middle">The offer never changes.</text>
+    <text x="496" y="258" font-size="12.5" fill="#6f6a63" font-family="Inter" text-anchor="middle">The reason to act does.</text>
+
+    <rect x="28" y="356" width="620" height="228" rx="18" fill="#f6f1e4" stroke="#e3d5ae"/>
+    <text class="fig" x="48" y="384" font-size="13.5" font-weight="800" fill="#8a6d28">ALWAYS ON &#183; built once, never stops</text>
+    <text class="fig" x="48" y="404" font-size="12.5" font-weight="500" fill="#9a8a63">People handing over a card today. We currently ask them nothing.</text>
+
+    <g>
+      <rect x="46" y="418" width="290" height="62" rx="11" fill="#fff" stroke="#e6dcc2"/>
+      <rect x="46" y="418" width="4.5" height="62" rx="2" fill="#c99a3d"/>
+      <text class="fig" x="66" y="444" font-size="15" font-weight="700" fill="#2e2b27">Low ticket upsell</text>
+      <text x="66" y="465" font-size="12.5" fill="#6f6a63" font-family="Inter">~35 buyers a day &#183; one click after checkout</text>
+    </g>
+    <g>
+      <rect x="46" y="490" width="290" height="62" rx="11" fill="#fff" stroke="#e6dcc2"/>
+      <rect x="46" y="490" width="4.5" height="62" rx="2" fill="#8a6d28"/>
+      <text class="fig" x="66" y="516" font-size="15" font-weight="700" fill="#2e2b27">Supplement upsell</text>
+      <text x="66" y="537" font-size="12.5" fill="#6f6a63" font-family="Inter">Largest warm buyer file in the business</text>
+    </g>
+
+    <rect x="368" y="422" width="256" height="126" rx="13" fill="#fff" stroke="#c99a3d" stroke-width="1.6"/>
+    <text class="fig" x="496" y="452" font-size="14" font-weight="800" fill="#8a6d28" text-anchor="middle">OFFERED AT CHECKOUT</text>
+    <line x1="392" y1="464" x2="600" y2="464" stroke="#eadfc4"/>
+    <text x="496" y="486" font-size="12.5" fill="#37342f" font-family="Inter" text-anchor="middle">Card is already on the screen.</text>
+    <text x="496" y="510" font-size="12.5" fill="#6f6a63" font-family="Inter" text-anchor="middle">$127 first. The $47 a month</text>
+    <text x="496" y="530" font-size="12.5" fill="#6f6a63" font-family="Inter" text-anchor="middle">follows if she declines.</text>
+
+    <path d="M624 213 C 668 213, 676 300, 712 300" stroke="#c98f7a" stroke-width="1.6" fill="none" marker-end="url(#arw)"/>
+    <path d="M624 485 C 668 485, 676 372, 712 372" stroke="#c9a86a" stroke-width="1.6" fill="none" marker-end="url(#arg)"/>
+
+    <rect x="726" y="170" width="252" height="336" rx="14" fill="#fff" stroke="#eddcd2" stroke-width="1.4"/>
+    <rect x="726" y="170" width="252" height="34" rx="14" fill="#c85f3d"/>
+    <rect x="726" y="190" width="252" height="14" fill="#c85f3d"/>
+    <text class="fig" x="852" y="193" font-size="13.5" font-weight="700" fill="#fff" text-anchor="middle">ONE OFFER PAGE</text>
+
+    <text class="fig" x="852" y="232" font-size="19" font-weight="800" fill="#2e2b27" text-anchor="middle">12 Week Challenge</text>
+
+    <rect x="744" y="246" width="216" height="88" rx="11" fill="#fdf1ea" stroke="#e1785a" stroke-width="1.6"/>
+    <text class="fig" x="758" y="266" font-size="10.5" font-weight="800" fill="#c85f3d" letter-spacing="1">WHAT WE PUSH</text>
+    <text class="fig" x="852" y="308" font-size="36" font-weight="800" fill="#c85f3d" text-anchor="middle">$127</text>
+    <text x="852" y="326" font-size="12" fill="#9c8478" font-family="Inter" text-anchor="middle">one payment &#183; the full 12 weeks</text>
+
+    <rect x="744" y="342" width="216" height="58" rx="11" fill="#fafafa" stroke="#ddd9d3"/>
+    <text class="fig" x="758" y="361" font-size="10.5" font-weight="800" fill="#a8a29a" letter-spacing="1">SECOND OPTION</text>
+    <text class="fig" x="852" y="388" font-size="20" font-weight="800" fill="#6f6a63" text-anchor="middle">$47 a month</text>
+
+    <line x1="756" y1="416" x2="948" y2="416" stroke="#f0ddd4"/>
+    <text x="852" y="440" font-size="13" fill="#37342f" font-family="Inter" text-anchor="middle" font-weight="600">Starts Monday August 17</text>
+    <text x="852" y="462" font-size="13" fill="#c85f3d" font-family="Inter" text-anchor="middle" font-weight="700">Doors close August 16</text>
+    <rect x="756" y="474" width="192" height="22" rx="7" fill="#fdf6f2" stroke="#f0d9cd"/>
+    <text x="852" y="489" font-size="11.5" fill="#9c8478" font-family="Inter" text-anchor="middle">Spots are limited &#183; every asset sends here</text>
+
+    <path d="M978 336 L 1014 336" stroke="#c85f3d" stroke-width="1.8" fill="none" marker-end="url(#arb)"/>
+
+    <rect x="1028" y="238" width="204" height="196" rx="14" fill="#2e2b27"/>
+    <text class="fig" x="1130" y="290" font-size="42" font-weight="800" fill="#e1785a" text-anchor="middle">100+</text>
+    <text class="fig" x="1130" y="322" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">founding members</text>
+    <line x1="1058" y1="344" x2="1202" y2="344" stroke="#4a4640"/>
+    <text x="1130" y="370" font-size="12.5" fill="#c8c2b8" font-family="Inter" text-anchor="middle">One cohort.</text>
+    <text x="1130" y="390" font-size="12.5" fill="#c8c2b8" font-family="Inter" text-anchor="middle">All starting the same day.</text>
+    <text x="1130" y="414" font-size="12.5" fill="#e1785a" font-family="Inter" text-anchor="middle" font-weight="600">All finishing before the holidays.</text>
+
+    <line x1="28" y1="620" x2="1232" y2="620" stroke="#eceae6"/>
+    <text x="28" y="648" font-size="13" fill="#6f6a63" font-family="Inter">The rose band is the launch. It runs for thirteen days and then stops.</text>
+    <text x="28" y="672" font-size="13" fill="#6f6a63" font-family="Inter">The gold band is built once and keeps producing members every day after doors close, with nobody touching it.</text>
+  </svg>
+
+  <svg class="stage-svg only-mobile" viewBox="0 0 400 1160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Five traffic sources feed one offer page which produces a founding cohort of a hundred or more members.">
+    <defs>
+      <marker id="mdn" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c85f3d"/></marker>
+    </defs>
+
+    <rect x="0" y="24" width="400" height="300" rx="15" fill="#fdf6f2" stroke="#f3e1d7"/>
+    <text class="fig" x="16" y="50" font-size="13.5" font-weight="800" fill="#c85f3d">THE LAUNCH ENGINE &#183; 13 days only</text>
+    <text class="fig" x="16" y="70" font-size="12" font-weight="500" fill="#9c8478">Aug 4 to 16. Most of the 100 comes from here.</text>
+    <rect x="14" y="84" width="372" height="62" rx="10" fill="#fff" stroke="#eddcd2"/>
+    <rect x="14" y="84" width="4.5" height="62" rx="2" fill="#c85f3d"/>
+    <text class="fig" x="32" y="110" font-size="15" font-weight="700" fill="#2e2b27">JJ Instagram stories</text>
+    <text x="32" y="130" font-size="12.5" fill="#6f6a63" font-family="Inter">Daily, every day of the launch</text>
+    <rect x="14" y="154" width="372" height="62" rx="10" fill="#fff" stroke="#eddcd2"/>
+    <rect x="14" y="154" width="4.5" height="62" rx="2" fill="#d76e4d"/>
+    <text class="fig" x="32" y="180" font-size="15" font-weight="700" fill="#2e2b27">Email lists</text>
+    <text x="32" y="200" font-size="12.5" fill="#6f6a63" font-family="Inter">Six sends across thirteen days</text>
+    <rect x="14" y="224" width="372" height="62" rx="10" fill="#fff" stroke="#eddcd2"/>
+    <rect x="14" y="224" width="4.5" height="62" rx="2" fill="#e1785a"/>
+    <text class="fig" x="32" y="250" font-size="15" font-weight="700" fill="#2e2b27">Content plus DM keyword</text>
+    <text x="32" y="270" font-size="12.5" fill="#6f6a63" font-family="Inter">Every post and reel during the launch</text>
+    <text class="fig" x="16" y="308" font-size="12" font-weight="600" fill="#c85f3d">Announce &#8594; Prove &#8594; Push &#8594; Close</text>
+
+    <rect x="0" y="344" width="400" height="250" rx="15" fill="#f6f1e4" stroke="#e3d5ae"/>
+    <text class="fig" x="16" y="370" font-size="13.5" font-weight="800" fill="#8a6d28">ALWAYS ON &#183; built once, never stops</text>
+    <text class="fig" x="16" y="390" font-size="12" font-weight="500" fill="#9a8a63">People handing over a card today.</text>
+    <rect x="14" y="404" width="372" height="62" rx="10" fill="#fff" stroke="#e6dcc2"/>
+    <rect x="14" y="404" width="4.5" height="62" rx="2" fill="#c99a3d"/>
+    <text class="fig" x="32" y="430" font-size="15" font-weight="700" fill="#2e2b27">Low ticket upsell</text>
+    <text x="32" y="450" font-size="12.5" fill="#6f6a63" font-family="Inter">~35 buyers a day &#183; one click at checkout</text>
+    <rect x="14" y="474" width="372" height="62" rx="10" fill="#fff" stroke="#e6dcc2"/>
+    <rect x="14" y="474" width="4.5" height="62" rx="2" fill="#8a6d28"/>
+    <text class="fig" x="32" y="500" font-size="15" font-weight="700" fill="#2e2b27">Supplement upsell</text>
+    <text x="32" y="520" font-size="12.5" fill="#6f6a63" font-family="Inter">Largest warm buyer file in the business</text>
+    <text class="fig" x="16" y="558" font-size="12" font-weight="600" fill="#8a6d28">$127 first. $47 a month on the decline.</text>
+
+    <path d="M200 596 L200 624" stroke="#c85f3d" stroke-width="1.8" marker-end="url(#mdn)"/>
+
+    <rect x="0" y="630" width="400" height="300" rx="14" fill="#fff" stroke="#eddcd2" stroke-width="1.4"/>
+    <rect x="0" y="630" width="400" height="34" rx="14" fill="#c85f3d"/>
+    <rect x="0" y="650" width="400" height="14" fill="#c85f3d"/>
+    <text class="fig" x="200" y="653" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">ONE OFFER PAGE</text>
+    <text class="fig" x="200" y="692" font-size="19" font-weight="800" fill="#2e2b27" text-anchor="middle">12 Week Challenge</text>
+
+    <rect x="16" y="706" width="368" height="80" rx="10" fill="#fdf1ea" stroke="#e1785a" stroke-width="1.5"/>
+    <text class="fig" x="30" y="726" font-size="10.5" font-weight="800" fill="#c85f3d" letter-spacing="0.8">WHAT WE PUSH</text>
+    <text class="fig" x="200" y="764" font-size="34" font-weight="800" fill="#c85f3d" text-anchor="middle">$127</text>
+    <text x="200" y="780" font-size="11.5" fill="#9c8478" font-family="Inter" text-anchor="middle">one payment &#183; the full 12 weeks</text>
+
+    <rect x="16" y="796" width="368" height="52" rx="10" fill="#fafafa" stroke="#ddd9d3"/>
+    <text class="fig" x="30" y="814" font-size="10.5" font-weight="800" fill="#a8a29a" letter-spacing="0.8">SECOND OPTION</text>
+    <text class="fig" x="200" y="838" font-size="19" font-weight="800" fill="#6f6a63" text-anchor="middle">$47 a month</text>
+
+    <line x1="16" y1="866" x2="384" y2="866" stroke="#f0ddd4"/>
+    <text x="200" y="888" font-size="13" fill="#37342f" font-family="Inter" font-weight="600" text-anchor="middle">Starts Monday August 17</text>
+    <text x="200" y="910" font-size="13" fill="#c85f3d" font-family="Inter" font-weight="700" text-anchor="middle">Doors close August 16 &#183; spots limited</text>
+
+    <path d="M200 932 L200 960" stroke="#c85f3d" stroke-width="1.8" marker-end="url(#mdn)"/>
+
+    <rect x="0" y="966" width="400" height="170" rx="14" fill="#2e2b27"/>
+    <text class="fig" x="200" y="1024" font-size="44" font-weight="800" fill="#e1785a" text-anchor="middle">100+</text>
+    <text class="fig" x="200" y="1054" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">founding members</text>
+    <line x1="40" y1="1074" x2="360" y2="1074" stroke="#4a4640"/>
+    <text x="200" y="1096" font-size="12.5" fill="#c8c2b8" font-family="Inter" text-anchor="middle">One cohort. All starting the same day.</text>
+    <text x="200" y="1118" font-size="12.5" fill="#e1785a" font-family="Inter" font-weight="600" text-anchor="middle">All finishing before the holidays.</text>
+  </svg>
+
+  <div class="legend">
+    <div class="li"><span class="sw" style="background:#c85f3d"></span> Launch engine &#183; 13 days</div>
+    <div class="li"><span class="sw" style="background:#c99a3d"></span> Always on &#183; permanent</div>
+  </div>
+
+
+  <!-- ============ 02 · WHY ============ -->
+  <div class="big-title">
+    <div class="bt-num">02</div>
+    <div>
+      <div class="bt-kick">Why we are doing it this way</div>
+      <h2>Why this is the most powerful move we have</h2>
+      <div class="bt-sub">Four reasons, in the order that matters.</div>
+    </div>
+  </div>
+
+  <div class="drill">
+    <div class="row" style="--rc:#c85f3d">
+      <div class="rownum"><div class="bub">1</div><div class="stem"></div></div>
+      <div class="rowbody">
+        <h3>Repetition is the whole point</h3>
+        <div class="what">Almost nobody buys the first time. They buy the fifth or sixth. <strong>A challenge is the only structure that lets JJ push the same offer every day for two weeks without repeating herself,</strong> because the reason to act changes as the deadline gets closer.</div>
+      </div>
+    </div>
+    <div class="row" style="--rc:#d76e4d">
+      <div class="rownum"><div class="bub">2</div><div class="stem"></div></div>
+      <div class="rowbody">
+        <h3>It uses the assets we already have</h3>
+        <div class="what">The email lists and JJ's social are the two most valuable things in this business, already warm and already running. <strong>This plan points them all at one page for two weeks.</strong> That is the entire build.</div>
+      </div>
+    </div>
+    <div class="row" style="--rc:#e1785a">
+      <div class="rownum"><div class="bub">3</div><div class="stem"></div></div>
+      <div class="rowbody">
+        <h3>Everyone understands a challenge immediately</h3>
+        <div class="what">Her audience has done challenges with her before. Nothing new to explain. <strong>Start date, finish date, limited spots.</strong> That is a decision anyone can make in ten seconds.</div>
+      </div>
+    </div>
+    <div class="row" style="--rc:#c99a3d">
+      <div class="rownum"><div class="bub">4</div></div>
+      <div class="rowbody">
+        <h3>The deadline is real</h3>
+        <div class="what">We are not inventing urgency. Twelve weeks from August 17 lands on November 8, so she walks into Thanksgiving and the holidays up to 30 pounds lighter and surprises everyone at the table. <strong>Wait, and the next time she starts is January.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flag">
+    <div class="ft">Nothing new has to work</div>
+    <div class="fd">No paid traffic. No new audience. No new funnel. The two checkout upsells run on people already buying from JJ today, with a card already on the screen, <strong>and they keep producing members long after the launch is over.</strong></div>
+  </div>
+
+
+  <!-- ============ 03 · OFFER ============ -->
+  <div class="big-title warm">
+    <div class="bt-num">03</div>
+    <div>
+      <div class="bt-kick">The offer</div>
+      <h2>What we are selling</h2>
+      <div class="bt-sub">The same offer everywhere. Nothing changes between one asset and the next.</div>
+    </div>
+  </div>
+
+  <div class="offer">
+    <div class="oh">The 12 Week Challenge &#183; final name still to be decided</div>
+    <div class="ob">
+      <div class="oc">
+        <div class="ok">The price</div>
+        <div class="ov price">$127</div>
+        <div class="od">One payment for the full 12 weeks. <strong>$47 a month sits underneath as the second option,</strong> smaller and quieter.</div>
+      </div>
+      <div class="oc">
+        <div class="ok">The dates</div>
+        <div class="ov">Aug 17<br>to Nov 8</div>
+        <div class="od">Doors close Sunday August 16. Everyone starts the same day.</div>
+      </div>
+      <div class="oc">
+        <div class="ok">The promise</div>
+        <div class="ov">Up to 30 pounds lighter by Thanksgiving</div>
+        <div class="od">Finish November 8. The holidays start November 26.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="msgs">
+    <div class="msg" style="--mc:#c85f3d">
+      <div class="mk">Message 1 &#183; leads everywhere</div>
+      <div class="mt">Up to 30 pounds lighter by Thanksgiving.</div>
+      <div class="md">Walk into the holidays looking like the woman you have been missing. Spots are limited, doors close August 16. Everyone understands this in one read.</div>
+    </div>
+    <div class="msg" style="--mc:#c99a3d">
+      <div class="mk">Message 2 &#183; follows, never leads</div>
+      <div class="mt">JJ has never done this before.</div>
+      <div class="md">For twelve weeks she is in your corner every day. Checking in, on the phone weekly, noticing when you slip. This is what makes her choose this over another plan on the shelf.</div>
+    </div>
+  </div>
+
+  <div class="flag">
+    <div class="ft">We push the $127. We still take the $47.</div>
+    <div class="fd">$127 is what every story, email and headline points at. It matches the twelve weeks and holds her through the full program, which is where the results come from. <strong>The $47 a month is on the page too, sized and placed as the clear second choice.</strong> On the checkout upsells it runs in sequence instead: $127 first, $47 only after she declines, because there is no room for two buttons.</div>
+  </div>
+
+
+  <!-- ============ 04 · ROADMAP ============ -->
+  <div class="big-title">
+    <div class="bt-num">04</div>
+    <div>
+      <div class="bt-kick">The roadmap</div>
+      <h2>Thirteen days, four phases</h2>
+      <div class="bt-sub">The offer never changes. The reason to act does.</div>
+    </div>
+  </div>
+
+  <div class="diagram-label">The calendar</div>
+
+  <svg class="stage-svg only-desktop" viewBox="0 0 1260 232" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A thirteen day timeline in four phases. Announce runs August 4 to 6, Prove runs August 7 to 10, Push runs August 11 to 14, Close runs August 15 to 16, and the challenge starts August 17. The colour deepens as the deadline approaches.">
+    <text class="fig" x="28" y="26" font-size="12.5" font-weight="700" fill="#a8a29a" letter-spacing="1.1">DOORS OPEN &#183; AUG 4 &#183; TOMORROW</text>
+    <text class="fig" x="1232" y="26" font-size="12.5" font-weight="700" fill="#c85f3d" letter-spacing="1.1" text-anchor="end">DOORS CLOSE &#183; AUG 16</text>
+
+    <rect x="28" y="42" width="272" height="86" rx="12" fill="#f7d9cc"/>
+    <rect x="308" y="42" width="330" height="86" rx="12" fill="#eeae94"/>
+    <rect x="646" y="42" width="330" height="86" rx="12" fill="#dd7f5c"/>
+    <rect x="984" y="42" width="180" height="86" rx="12" fill="#a8452a"/>
+    <rect x="1172" y="42" width="60" height="86" rx="12" fill="#2e2b27"/>
+
+    <text class="fig" x="52" y="80" font-size="16" font-weight="800" fill="#8a3a20">ANNOUNCE</text>
+    <text class="fig" x="52" y="104" font-size="13.5" font-weight="600" fill="#a8563a">Aug 4 to 6</text>
+    <text class="fig" x="332" y="80" font-size="16" font-weight="800" fill="#fff">PROVE</text>
+    <text class="fig" x="332" y="104" font-size="13.5" font-weight="600" fill="#fdece4">Aug 7 to 10</text>
+    <text class="fig" x="670" y="80" font-size="16" font-weight="800" fill="#fff">PUSH</text>
+    <text class="fig" x="670" y="104" font-size="13.5" font-weight="600" fill="#fdece4">Aug 11 to 14</text>
+    <text class="fig" x="1008" y="80" font-size="16" font-weight="800" fill="#fff">CLOSE</text>
+    <text class="fig" x="1008" y="104" font-size="13.5" font-weight="600" fill="#f6cfc2">Aug 15 to 16</text>
+    <circle cx="1126" cy="64" r="13" fill="#fdf1ea" stroke="#fff" stroke-width="1.5"/>
+    <text class="fig" x="1126" y="69" font-size="12" font-weight="800" fill="#a8452a" text-anchor="middle">LIVE</text>
+    <text class="fig" x="1202" y="80" font-size="12" font-weight="800" fill="#e1785a" text-anchor="middle">START</text>
+    <text class="fig" x="1202" y="102" font-size="11.5" font-weight="600" fill="#c8c2b8" text-anchor="middle">Aug 17</text>
+
+    <text x="28" y="160" font-size="13.5" fill="#6f6a63" font-family="Inter">Daily stories throughout. Email sends inside each phase. The colour deepens as the deadline gets closer.</text>
+    <text x="28" y="186" font-size="13.5" fill="#c85f3d" font-family="Inter" font-weight="600">The close weekend regularly produces a third of a launch. Whatever else moves, those two days stay heavy.</text>
+    <text x="28" y="208" font-size="13.5" fill="#6f6a63" font-family="Inter">If JJ goes live, it lands in the close weekend. Optional, decided by August 10 so there is time to prepare it.</text>
+  </svg>
+
+  <svg class="stage-svg only-mobile" viewBox="0 0 400 452" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A thirteen day timeline in four phases, deepening in colour as the deadline approaches.">
+    <text class="fig" x="0" y="14" font-size="11.5" font-weight="700" fill="#a8a29a" letter-spacing="1">DOORS OPEN &#183; AUG 4 &#183; TOMORROW</text>
+
+    <rect x="0" y="26" width="400" height="60" rx="11" fill="#f7d9cc"/>
+    <text class="fig" x="20" y="53" font-size="16" font-weight="800" fill="#8a3a20">ANNOUNCE</text>
+    <text class="fig" x="20" y="73" font-size="13" font-weight="600" fill="#a8563a">Aug 4 to 6</text>
+
+    <rect x="0" y="94" width="400" height="60" rx="11" fill="#eeae94"/>
+    <text class="fig" x="20" y="121" font-size="16" font-weight="800" fill="#fff">PROVE</text>
+    <text class="fig" x="20" y="141" font-size="13" font-weight="600" fill="#fdece4">Aug 7 to 10</text>
+
+    <rect x="0" y="162" width="400" height="60" rx="11" fill="#dd7f5c"/>
+    <text class="fig" x="20" y="189" font-size="16" font-weight="800" fill="#fff">PUSH</text>
+    <text class="fig" x="20" y="209" font-size="13" font-weight="600" fill="#fdece4">Aug 11 to 14</text>
+
+    <rect x="0" y="230" width="400" height="60" rx="11" fill="#a8452a"/>
+    <text class="fig" x="20" y="257" font-size="16" font-weight="800" fill="#fff">CLOSE</text>
+    <text class="fig" x="20" y="277" font-size="13" font-weight="600" fill="#f6cfc2">Aug 15 to 16</text>
+    <circle cx="352" cy="260" r="16" fill="#fdf1ea"/>
+    <text class="fig" x="352" y="265" font-size="12" font-weight="800" fill="#a8452a" text-anchor="middle">LIVE</text>
+
+    <rect x="0" y="298" width="400" height="54" rx="11" fill="#2e2b27"/>
+    <text class="fig" x="20" y="322" font-size="14" font-weight="800" fill="#e1785a">START</text>
+    <text class="fig" x="20" y="341" font-size="12.5" font-weight="600" fill="#c8c2b8">Monday August 17</text>
+    <text class="fig" x="380" y="332" font-size="12.5" font-weight="700" fill="#fff" text-anchor="end">DOORS CLOSE AUG 16</text>
+
+    <text x="0" y="386" font-size="13" fill="#6f6a63" font-family="Inter">Daily stories throughout. Email sends inside</text>
+    <text x="0" y="404" font-size="13" fill="#6f6a63" font-family="Inter">each phase. The colour deepens as the deadline nears.</text>
+    <text x="0" y="428" font-size="13" fill="#c85f3d" font-family="Inter" font-weight="600">The close weekend regularly produces a third</text>
+    <text x="0" y="446" font-size="13" fill="#c85f3d" font-family="Inter" font-weight="600">of a launch. If JJ goes live, it lands there.</text>
+  </svg>
+
+  <table>
+    <tr><th style="width:15%">Phase</th><th style="width:15%">Days</th><th>What the message says</th></tr>
+    <tr><td class="ph">Announce</td><td class="dt">Aug 4 to 6</td><td>It is happening. Here is what it is, when it starts, what you get. Doors are open.</td></tr>
+    <tr><td class="ph">Prove</td><td class="dt">Aug 7 to 10</td><td>Results from women who have done it. How the twelve weeks work. Answer what is holding her back.</td></tr>
+    <tr><td class="ph">Push</td><td class="dt">Aug 11 to 14</td><td>Spots are filling. Finish before Thanksgiving, or start over in January.</td></tr>
+    <tr><td class="ph">Close</td><td class="dt">Aug 15 to 16</td><td><strong>Last call.</strong> Doors close Sunday night. We start Monday with you or without you. <strong>If JJ does a live, it goes here.</strong></td></tr>
+    <tr><td class="ph">Start</td><td class="dt">Aug 17</td><td>Everyone begins the same day. First results to share by late August.</td></tr>
+  </table>
+
+
+  <!-- ============ 05 · EXECUTION ============ -->
+  <div class="big-title gold">
+    <div class="bt-num">05</div>
+    <div>
+      <div class="bt-kick">Execution</div>
+      <h2>How we use each asset</h2>
+      <div class="bt-sub">Ordered fastest to slowest to get live.</div>
+    </div>
+  </div>
+
+  <div class="srcs">
+    <div class="src" style="--sc:#c85f3d">
+      <div class="sn">01</div>
+      <div class="sb">
+        <div class="st">JJ Instagram stories <span class="tag warm">Live tonight</span></div>
+        <div class="sd">Every day, three to five frames, shot on her phone. The angle rotates: what it is, a result, a day inside, spots filling, an objection, doors closing. Every frame ends with the link and the deadline. She batches three days at a time so it never becomes a daily chore.</div>
+      </div>
+    </div>
+    <div class="src" style="--sc:#d76e4d">
+      <div class="sn">02</div>
+      <div class="sb">
+        <div class="st">Email lists <span class="tag warm">Live tomorrow</span></div>
+        <div class="sd">Six sends across thirteen days to every list she has, including supplement buyers. Announce, how it works, proof, spots filling, the objection, doors close tonight. The last two both go out on August 16, morning and evening.</div>
+      </div>
+    </div>
+    <div class="src" style="--sc:#e1785a">
+      <div class="sn">03</div>
+      <div class="sb">
+        <div class="st">Content plus DM keyword <span class="tag warm">Live tomorrow</span></div>
+        <div class="sd">Every post and reel carries a keyword. She says comment the word, the link goes straight to their messages. We add it to her strongest older posts too, which still collect comments daily. Email and phone are captured there, so we own the contact after the launch.</div>
+      </div>
+    </div>
+    <div class="src" style="--sc:#c99a3d">
+      <div class="sn">04</div>
+      <div class="sb">
+        <div class="st">Low ticket upsell <span class="tag gold">Keeps running</span></div>
+        <div class="sd">Around 35 people a day already buy the low ticket and hand over a card. Right now we ask them nothing. We add the challenge as a one click offer straight after checkout, with $47 a month on the decline.</div>
+      </div>
+    </div>
+    <div class="src" style="--sc:#8a6d28">
+      <div class="sn">05</div>
+      <div class="sb">
+        <div class="st">Supplement upsell <span class="tag gold">Keeps running</span></div>
+        <div class="sd">The same offer at supplement checkout. Built once, costs nothing to run, and the supplement buyer file is the largest warm audience in the business.</div>
+      </div>
+    </div>
+
+    <div class="src" style="--sc:#4d7a78">
+      <div class="sn">06</div>
+      <div class="sb">
+        <div class="st">JJ goes live <span class="tag" style="background:#e8f0ef;color:#4d7a78">Optional &#183; close weekend</span></div>
+        <div class="sd">One live in the close weekend. Free value for forty five minutes, then the offer, pointed at the same page as everything else. A live regularly outperforms a week of email, so it is our biggest one day lever. <strong>The plan does not need it to reach 100, which is why it stays optional.</strong> Decide by August 10 so there is time to prepare it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flag gold">
+    <div class="ft">The two upsells outlive the launch</div>
+    <div class="fd">Built once, they keep producing members every day after doors close, with nobody touching them. <strong>When the cart closes on August 16, they switch to the next cohort date rather than going dark.</strong></div>
+  </div>
+
+
+  <!-- ============ 06 · CLOSE ============ -->
+  <div class="big-title warm">
+    <div class="bt-num">06</div>
+    <div>
+      <div class="bt-kick">What we get</div>
+      <h2>More than 100 members</h2>
+      <div class="bt-sub">The launch is worth more than the revenue it produces.</div>
+    </div>
+  </div>
+
+  <div class="headline">
+    <div class="hk">The real payoff</div>
+    <p class="h-main">One hundred women starting the same day means one hundred transformations <em>finishing the same day, right before the holidays.</em></p>
+    <p class="h-sub">That gives us the results, the photos and the proof to run this again in January at a much larger scale, and the first real evidence of what the JJ edition does over a full twelve weeks.</p>
+  </div>
+
+  <div class="foot">
+    Yobody &#183; JJ Smith Edition &#183; Launch plan, August 2026 &#183; Internal.<br>
+    Program name is a placeholder pending JJ's decision. All results stated as up to. Spots described as limited, held to a real internal cap. Dates assume doors open August 4 and close August 16.
+  </div>
+
+</div>
+
+</body>
+</html>
